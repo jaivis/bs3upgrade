@@ -1,0 +1,111 @@
+/*
+  Author: Aivis J.
+ */
+
+//  Vars (min-width's)
+$custom: 320px;
+$xs: 480px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+
+//  breakpoints
+$grid-breakpoints: (
+        custom: $custom,
+        xs: $xs,
+        sm: $sm,
+        md: $md,
+        lg: $lg,
+);
+
+//  spacings
+$properties: (
+  p: padding,
+  m: margin
+);
+
+//  spacing step
+$spacing-multiplier: 5;
+$spacing-multiplied: 20;
+
+
+//  loop breakpoints
+@each $breakpoint, $width in $grid-breakpoints {
+
+  //  Custom same as XS
+  @if $breakpoint == custom {
+    $breakpoint: xs;
+  }
+
+  //  create media
+  @media only screen and (min-width: $width) {
+
+    /*
+          TEXT ALIGN
+   */
+    .col-#{$breakpoint}-text-center {
+      text-align: center !important;
+    }
+
+    .col-#{$breakpoint}-text-right {
+      text-align: right !important;;
+    }
+
+    .col-#{$breakpoint}-text-left {
+      text-align: left !important;;
+    }
+
+    .col-#{$breakpoint}-text-justify {
+      text-align: justify !important;
+    }
+    
+    
+    /*
+          PADDINGS & MARGINS
+     */
+    @each $property_short, $property_long in $properties{
+
+      //  px or steps
+      @for $i from 0 through $spacing-multiplied{
+
+        //  multiply
+        $i: $i * $spacing-multiplier;
+
+        //  data
+        .col-#{$breakpoint}-#{$property_short}l-#{$i} {
+          #{$property_long}-left: 0px + $i !important;
+        }
+
+        .col-#{$breakpoint}-#{$property_short}r-#{$i} {
+          #{$property_long}-right: 0px + $i !important;
+        }
+
+        .col-#{$breakpoint}-#{$property_short}t-#{$i} {
+          #{$property_long}-top: 0px + $i !important;
+        }
+
+        .col-#{$breakpoint}-#{$property_short}b-#{$i} {
+          #{$property_long}-bottom: 0px + $i !important;
+        }
+
+        .col-#{$breakpoint}-#{$property_short}y-#{$i} {
+          #{$property_long}-top: 0px + $i !important;
+          #{$property_long}-bottom: 0px + $i !important;
+        }
+
+        .col-#{$breakpoint}-#{$property_short}x-#{$i} {
+          #{$property_long}-left: 0px + $i !important;
+          #{$property_long}-right: 0px + $i !important;
+        }
+
+        .col-#{$breakpoint}-#{$property_short}-#{$i} {
+          #{$property_long}: 0px + $i !important;
+        }
+
+      }
+      
+    }
+
+  }
+
+}
